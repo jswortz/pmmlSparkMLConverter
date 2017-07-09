@@ -6,6 +6,7 @@ import java.io._
 import org.apache.spark.sql.types.StructType
 import org.jpmml.model.JAXBUtil
 import javax.xml.transform.stream.StreamResult
+import org.apache.spark.sql.types._
 /**
   * Created by Jeremy on 7/6/2017.
   */
@@ -18,6 +19,7 @@ object PMMLConverter {
     val ois = new ObjectInputStream(new FileInputStream(args(0)))
     val schma = ois.readObject.asInstanceOf[StructType]
     ois.close
+//    val schma: StructType = StructType(Array(StructField("features",DoubleType,false), StructField("label",IntegerType,false)))
     val pmml = ConverterUtil.toPMML(schma, model)
     JAXBUtil.marshalPMML(pmml, new StreamResult(args(2)))
     sc.stop()
