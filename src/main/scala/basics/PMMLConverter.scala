@@ -20,5 +20,6 @@ object PMMLConverter {
     ois.close
     val pmml = ConverterUtil.toPMML(schma, model)
     JAXBUtil.marshalPMML(pmml, new StreamResult(args(2)))
+    sc.stop()
   }
 }
